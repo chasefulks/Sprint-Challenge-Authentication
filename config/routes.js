@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const db = require("../database/dbConfig.js");
 
-const { authenticate } = require("../auth/authenticate");
+const { authenticate, generateToken } = require("../auth/authenticate");
 
 module.exports = server => {
   server.post("/api/register", register);
@@ -28,18 +28,18 @@ function register(req, res) {
     .catch(err => res.json(err));
 }
 
-function generateToken(user) {
-  const payload = {
-    subject: user.id,
-    username: user.username
-  };
-  const jwtKey = "secrets i have";
-  const options = {
-    expiresIn: "30m"
-  };
+// function generateToken(user) {
+//   const payload = {
+//     subject: user.id,
+//     username: user.username
+//   };
+//   const jwtKey = "secrets i have";
+//   const options = {
+//     expiresIn: "30m"
+//   };
 
-  return jwt.sign(payload, jwtKey, options);
-}
+//   return jwt.sign(payload, jwtKey, options);
+// }
 
 function login(req, res) {
   // implement user login
